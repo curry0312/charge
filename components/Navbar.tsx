@@ -154,7 +154,7 @@ function AuthState({ user }: { user: KindeUser | null }) {
     <div className="flex items-center space-x-2 font-Gothic">
       {user ? (
         <>
-          <p>Hello {user.given_name}</p>
+          <p className="text-white">Hello {user.given_name}</p>
           <Avatar>
             <AvatarImage
               src={

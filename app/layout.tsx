@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
-import NextTopLoader from 'nextjs-toploader';
+import NextTopLoader from "nextjs-toploader";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,13 +17,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const {
-    getUser,
-    isAuthenticated,
-  } = getKindeServerSession();
+  const { getUser, isAuthenticated } = getKindeServerSession();
   const user = await getUser();
-    console.log(await getUser());
-    console.log(await isAuthenticated())
+  console.log(await getUser());
+  console.log(await isAuthenticated());
   return (
     <html lang="en">
       <body className={inter.className}>

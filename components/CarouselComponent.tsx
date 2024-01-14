@@ -8,13 +8,13 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-export default function HomeCarousel() {
+export default function CarouselComponent() {
   return (
-    <Carousel className="h-screen">
-      <CarouselContent className="h-screen">
+    <Carousel className="h-full">
+      <CarouselContent className="h-full">
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>
-            <div className="flex justify-center items-center h-screen">123</div>
+            <div className="flex justify-center items-center h-full">123</div>
           </CarouselItem>
         ))}
       </CarouselContent>

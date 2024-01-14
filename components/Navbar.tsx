@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Button } from "./ui/button";
 
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+
 import {
   RegisterLink,
   LoginLink,
@@ -63,50 +66,62 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function Navbar({ user }: { user: KindeUser | null }) {
   return (
-    <nav className="flex justify-between p-1">
-      <h1 className="font-bold text-2xl font-Gothic">Charge App</h1>
-      <NavigationMenuSection />
-      <AuthState user={user} />
+    <nav className="flex justify-between p-3 backdrop-blur-md fixed left-0 right-0 bg-opacity-5 bg-transparent">
+      <h1 className="font-bold text-2xl font-Gothic text-white">Charge App</h1>
+      <div className="hidden md:flex items-center justify-between flex-1 max-w-[60%]">
+        <div className={!!user ? "block" : "hidden"}>
+          <NavigationMenuSection />
+        </div>
+        <div className="ml-auto">
+          <AuthState user={user} />
+        </div>
+      </div>
+
+      {/*mobile device*/}
+      <div className="md:hidden">
+        <MenuIcon sx={{ color: "white" }} />
+        <MobileMenu />
+      </div>
     </nav>
   );
 }
 
 function NavigationMenuSection() {
-    return (
-      <NavigationMenu className="font-Gothic">
-        <NavigationMenuList>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li className="row-span-3">
-                  <NavigationMenuLink asChild>
-                    <a
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                      href="/dashboard"
-                    >
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        Go to dashboard
-                      </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Start your financial management
-                      </p>
-                    </a>
-                  </NavigationMenuLink>
-                </li>
-                <ListItem href="/docs" title="Introduction">
-                  Re-usable components built using Radix UI and Tailwind CSS.
-                </ListItem>
-                <ListItem href="/docs/installation" title="Installation">
-                  How to install dependencies and structure your app.
-                </ListItem>
-                <ListItem href="/docs/primitives/typography" title="Typography">
-                  Styles for headings, paragraphs, lists...etc
-                </ListItem>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          {/* <NavigationMenuItem>
+  return (
+    <NavigationMenu className="font-Gothic">
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+              <li className="row-span-3">
+                <NavigationMenuLink asChild>
+                  <a
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    href="/dashboard"
+                  >
+                    <div className="mb-2 mt-4 text-lg font-medium">
+                      Go to dashboard
+                    </div>
+                    <p className="text-sm leading-tight text-muted-foreground">
+                      Start your financial management
+                    </p>
+                  </a>
+                </NavigationMenuLink>
+              </li>
+              <ListItem href="/docs" title="Introduction">
+                Re-usable components built using Radix UI and Tailwind CSS.
+              </ListItem>
+              <ListItem href="/docs/installation" title="Installation">
+                How to install dependencies and structure your app.
+              </ListItem>
+              <ListItem href="/docs/primitives/typography" title="Typography">
+                Styles for headings, paragraphs, lists...etc
+              </ListItem>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        {/* <NavigationMenuItem>
             <NavigationMenuTrigger>Components</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
@@ -122,17 +137,17 @@ function NavigationMenuSection() {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem> */}
-          <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Documentation
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
-    );
-  }
+        <NavigationMenuItem>
+          <Link href="/docs" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Documentation
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+}
 
 function AuthState({ user }: { user: KindeUser | null }) {
   return (
@@ -163,6 +178,18 @@ function AuthState({ user }: { user: KindeUser | null }) {
           </Button>
         </>
       )}
+    </div>
+  );
+}
+
+function MobileMenu() {
+  return (
+    <div className="absolute top-0 right-0 h-[100vh] w-[60%] bg-white z-10">
+      <div className="absolute top-2 right-2">
+        <button onClick={() => {}} className="text-3xl">
+          <CloseIcon sx={{ fontSize: 30 }} />
+        </button>
+      </div>
     </div>
   );
 }

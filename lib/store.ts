@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
+import addNewBillSlice from './features/dashboard/addNewBillSlice'
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      // Add the generated reducer as a specific top-level slice
+      addNewBillSlice: addNewBillSlice,
+    },
   })
 }
 

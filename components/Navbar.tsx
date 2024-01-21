@@ -29,7 +29,7 @@ import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 
 export function Navbar({ user }: { user: KindeUser | null }) {
   return (
-    <nav className="flex justify-between p-3 backdrop-blur-md fixed left-0 right-0 bg-opacity-5 bg-transparent">
+    <nav className="flex justify-between p-3 backdrop-blur-md fixed left-0 right-0 bg-opacity-5 bg-transparent z-[2]">
       <h1 className="font-bold text-2xl font-Gothic text-white">Charge App</h1>
       <div className="hidden md:flex items-center justify-between flex-1 max-w-[60%]">
         <div className={!!user ? "block" : "hidden"}>
@@ -41,7 +41,7 @@ export function Navbar({ user }: { user: KindeUser | null }) {
       </div>
 
       {/*mobile device*/}
-      <div className="lg:hidden">
+      <div className="hidden">
         <MenuIcon sx={{ color: "white" }} />
         <MobileMenu />
       </div>

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import NextTopLoader from "nextjs-toploader";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import StoreProvider from "./storeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,11 +24,13 @@ export default async function RootLayout({
   console.log(await isAuthenticated());
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <NextTopLoader />
-        <Navbar user={user} />
-        {children}
-      </body>
+      <StoreProvider>
+        <body className={inter.className}>
+          <NextTopLoader />
+          <Navbar user={user} />
+          {children}
+        </body>
+      </StoreProvider>
     </html>
   );
 }

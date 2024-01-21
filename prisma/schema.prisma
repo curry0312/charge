@@ -37,17 +37,11 @@ model MonthModel {
 }
 
 model ChargeModel {
-  id           String     @id @default(uuid())
-  title        String
-  price        String
+  id       String @id @default(uuid())
+  price    String
+  category String
+  description  String
+  date         String
   monthModel   MonthModel @relation(fields: [monthModelId], references: [id])
   monthModelId String
-  categories   Category[]
-}
-
-model Category {
-  id            String      @id @default(uuid())
-  title         String
-  chargeModel   ChargeModel @relation(fields: [chargeModelId], references: [id])
-  chargeModelId String
 }

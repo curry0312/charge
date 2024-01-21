@@ -36,6 +36,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { onClose } from "@/lib/features/dashboard/addNewBillSlice";
+import { createBillAction } from "@/server/action";
 
 const formSchema = z.object({
   price: z.string().min(2).max(50),
@@ -93,7 +94,7 @@ export default function AddNewBillForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    
+    createBillAction()
   }
 
   return (

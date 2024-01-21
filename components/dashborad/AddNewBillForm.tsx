@@ -38,6 +38,7 @@ import { RootState } from "@/lib/store";
 import { onClose } from "@/lib/features/dashboard/addNewBillSlice";
 import { createBillAction } from "@/server/action";
 import dayjs from "dayjs";
+import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 
 const formSchema = z.object({
   price: z.string().min(2).max(50),
@@ -48,19 +49,18 @@ const formSchema = z.object({
   }),
 });
 
-export default function AddNewBillForm() {
+type AddNewBillFormProps = {
+  user: KindeUser;
+};
+export default function AddNewBillForm({ user }: AddNewBillFormProps) {
   const formRef = useRef<HTMLDivElement | null>(null);
-
   const isOpen = useSelector(
     (state: RootState) => state.addNewBillSlice.isOpen
   );
-
   const dispatch = useDispatch();
-
   function closeAddNewBillForm() {
     dispatch(onClose());
   }
-
   function popup() {
     if (formRef.current) {
       formRef.current.style.transform = "translateX(0%)";
@@ -97,7 +97,7 @@ export default function AddNewBillForm() {
     const { price, category, description, dob } = values;
     const formatDate = dayjs(dob).format("YYYY-MM-DD");
     console.log({ price, category, description, dob: formatDate });
-    await createBillAction({ price, category, description, dob: formatDate });
+    await createBillAction({ price, category, description, dob: formatDate, userId: user.id });
   }
 
   return (

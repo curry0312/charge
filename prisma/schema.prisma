@@ -22,7 +22,7 @@ model ChargeModel {
   id          String  @id @default(uuid())
   price       String
   category    String
-  description String
+  description String?
   date        String
   user        User?   @relation(fields: [userId], references: [id])
   userId      String?

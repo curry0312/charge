@@ -1,7 +1,5 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import dayjs from "dayjs";
-import { Card } from "@/components/ui/card";
 import AdjustMonthYear from "@/components/dashborad/AdjustMonthYear";
 import SelectFunction from "@/components/dashborad/SelectFunction";
 import AddNewBillForm from "@/components/dashborad/AddNewBillForm";
@@ -17,9 +15,9 @@ export default async function DashboardPage() {
   return (
     <main className="pt-20 bg-gradient-to-b from-sky-950 via-fuchsia-sky to-sky-800 relative overflow-hidden w-full h-screen">
       <AdjustMonthYear />
-      <RenderSpecificMonthBill />
+      <RenderSpecificMonthBill user={user}/>
       <SelectFunction />
-      <AddNewBillForm />
+      <AddNewBillForm user={user}/>
     </main>
   );
 }

@@ -21,8 +21,8 @@ export default async function RootLayout({
 }) {
   const { getUser, isAuthenticated } = getKindeServerSession();
   const user = await getUser();
-  console.log(await getUser());
-  console.log(await isAuthenticated());
+  console.log("current user", await getUser());
+  console.log("user is authenticated?", await isAuthenticated());
   return (
     <html lang="en">
       <body className={inter.className}>

@@ -27,7 +27,7 @@ export const checkUserExistAction = async ({
       return true;
     }
   }
-  return null;
+  console.log("current user is already exist");
 };
 
 export type CreateBillActionType = {
@@ -35,6 +35,7 @@ export type CreateBillActionType = {
   category: string;
   description: string;
   dob: string;
+  userId: string;
 };
 
 export const createBillAction = async ({
@@ -42,6 +43,7 @@ export const createBillAction = async ({
   category,
   description,
   dob,
+  userId,
 }: CreateBillActionType) => {
   try {
     const data = await prisma.chargeModel.create({
@@ -50,6 +52,7 @@ export const createBillAction = async ({
         description: description,
         category: category,
         date: dob,
+        userId: userId,
       },
     });
     console.log(data);
@@ -60,17 +63,21 @@ export const createBillAction = async ({
 
 type GetCurrentMonthBillType = {
   date: string;
+  userId: string;
 };
 export const getCurrentMonthBill = async ({
   date,
+  userId,
 }: GetCurrentMonthBillType) => {
   try {
     const data = await prisma.chargeModel.findMany({
       where: {
         date: date,
+        userId: userId,
       },
     });
     console.log(data);
+    return data;
   } catch (error) {
     console.log(error);
   }

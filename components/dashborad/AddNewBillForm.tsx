@@ -93,6 +93,7 @@ export default function AddNewBillForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+    
   }
 
   return (
@@ -106,7 +107,7 @@ export default function AddNewBillForm() {
           variant={"ghost"}
           className=" hover:bg-neutral-800 ml-auto"
         >
-          <CloseRoundedIcon sx={{ fontSize: 30, color: "white" }}/>
+          <CloseRoundedIcon sx={{ fontSize: 30, color: "white" }} />
         </Button>
       </div>
       <Form {...form}>
@@ -162,7 +163,7 @@ export default function AddNewBillForm() {
               <FormItem>
                 <FormLabel className="text-white">Price</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="What is your price?" {...field} />
                 </FormControl>
                 <FormDescription>Enter your price</FormDescription>
                 <FormMessage />
@@ -185,9 +186,9 @@ export default function AddNewBillForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                    <SelectItem value="breakfast">breakfast</SelectItem>
+                    <SelectItem value="lunch">lunch</SelectItem>
+                    <SelectItem value="dinner">dinner</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormDescription>Choose your category</FormDescription>

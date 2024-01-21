@@ -36,6 +36,8 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { onClose } from "@/lib/features/dashboard/addNewBillSlice";
+import { createBillAction } from "@/server/action";
+import dayjs from "dayjs";
 
 const formSchema = z.object({
   price: z.string().min(2).max(50),
@@ -89,10 +91,13 @@ export default function AddNewBillForm() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const { price, category, description, dob } = values;
+    const formatDate = dayjs(dob).format("YYYY-MM-DD");
+    console.log({ price, category, description, dob: formatDate });
+    await createBillAction({ price, category, description, dob: formatDate });
   }
 
   return (
@@ -106,7 +111,7 @@ export default function AddNewBillForm() {
           variant={"ghost"}
           className=" hover:bg-neutral-800 ml-auto"
         >
-          <CloseRoundedIcon sx={{ fontSize: 30, color: "white" }}/>
+          <CloseRoundedIcon sx={{ fontSize: 30, color: "white" }} />
         </Button>
       </div>
       <Form {...form}>
@@ -162,7 +167,7 @@ export default function AddNewBillForm() {
               <FormItem>
                 <FormLabel className="text-white">Price</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="What is your price?" {...field} />
                 </FormControl>
                 <FormDescription>Enter your price</FormDescription>
                 <FormMessage />
@@ -185,9 +190,9 @@ export default function AddNewBillForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="m@example.com">m@example.com</SelectItem>
-                    <SelectItem value="m@google.com">m@google.com</SelectItem>
-                    <SelectItem value="m@support.com">m@support.com</SelectItem>
+                    <SelectItem value="breakfast">breakfast</SelectItem>
+                    <SelectItem value="lunch">lunch</SelectItem>
+                    <SelectItem value="dinner">dinner</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormDescription>Choose your category</FormDescription>

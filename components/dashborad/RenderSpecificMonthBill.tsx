@@ -18,7 +18,7 @@ export default async function RenderSpecificMonthBill({
   return (
     <div className="flex flex-col gap-3 p-2">
       {USER_CURRENT_MONTH_BILLS?.map((item) => (
-        <Card className="flex items-center p-2">
+        <Card key={item.id} className="flex items-center p-2">
           <div className="basis-1/4">
             <p className="text-xl">{item.category}</p>
           </div>

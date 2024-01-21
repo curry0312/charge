@@ -37,6 +37,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
 import { onClose } from "@/lib/features/dashboard/addNewBillSlice";
 import { createBillAction } from "@/server/action";
+import dayjs from "dayjs";
 
 const formSchema = z.object({
   price: z.string().min(2).max(50),
@@ -90,11 +91,13 @@ export default function AddNewBillForm() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
-    createBillAction()
+    const { price, category, description, dob } = values;
+    const formatDate = dayjs(dob).format("YYYY-MM-DD");
+    console.log({ price, category, description, dob: formatDate });
+    await createBillAction({ price, category, description, dob: formatDate });
   }
 
   return (

@@ -27,73 +27,51 @@ export const checkUserExistAction = async ({
       return true;
     }
   }
-  return null
+  return null;
 };
 
-export const checkCurrentYearExistAction = async ({
-  year,
-  user,
-}: {
-  year: string;
-  user: KindeUser;
-}) => {
-  const data = await prisma.yearModel.findFirst({
-    where: {
-      year: year,
-    },
-  });
-  if (!data) {
-    await prisma.yearModel.create({
+export type CreateBillActionType = {
+  price: string;
+  category: string;
+  description: string;
+  dob: string;
+};
+
+export const createBillAction = async ({
+  price,
+  category,
+  description,
+  dob,
+}: CreateBillActionType) => {
+  try {
+    const data = await prisma.chargeModel.create({
       data: {
-        year: year,
-        user: {
-          connect: {
-            id: user.id,
-          },
-        },
+        price: price,
+        description: description,
+        category: category,
+        date: dob,
       },
     });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
   }
 };
 
-export const checkCurrentMonthExistAction = async ({
-  month,
-}: {
-  month: string;
-}) => {
-  const data = await prisma.monthModel.findFirst({
-    where: {
-      month: month,
-    },
-  });
-  if (!data) {
-    await prisma.monthModel.create({
-      data: {
-        month: month,
-        yearModel: {
-          connect: {
-            id: "1",
-          },
-        },
+type GetCurrentMonthBillType = {
+  date: string;
+};
+export const getCurrentMonthBill = async ({
+  date,
+}: GetCurrentMonthBillType) => {
+  try {
+    const data = await prisma.chargeModel.findMany({
+      where: {
+        date: date,
       },
     });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
   }
-  console.log(data);
-};
-
-export const createBillAction = async () => {
-  const data = await prisma.chargeModel.create({
-    data: {
-      price: "100",
-      description: "test charge",
-      category: "test category",
-      date: "2022-02-02",
-      monthModel: {
-        connect: {
-          id: "1",
-        },
-      },
-    },
-  });
-  console.log(data);
 };

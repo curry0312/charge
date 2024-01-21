@@ -12,36 +12,18 @@ generator client {
 }
 
 model User {
-  id        String      @id @default(uuid())
-  email     String      @unique
-  name      String
-  yearModel YearModel[]
-
-  @@unique([id])
-}
-
-model YearModel {
-  id          String       @id @default(uuid())
-  year        String       @unique
-  user        User         @relation(fields: [userId], references: [id])
-  userId      String
-  monthModels MonthModel[]
-}
-
-model MonthModel {
   id           String        @id @default(uuid())
-  month        String
-  yearModel    YearModel     @relation(fields: [yearModelId], references: [id])
-  yearModelId  String
+  email        String        @unique
+  name         String
   chargeModels ChargeModel[]
 }
 
 model ChargeModel {
-  id       String @id @default(uuid())
-  price    String
-  category String
-  description  String
-  date         String
-  monthModel   MonthModel @relation(fields: [monthModelId], references: [id])
-  monthModelId String
+  id          String  @id @default(uuid())
+  price       String
+  category    String
+  description String
+  date        String
+  user        User?   @relation(fields: [userId], references: [id])
+  userId      String?
 }
